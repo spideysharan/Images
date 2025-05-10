@@ -1,0 +1,1157 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Senior's Books For Sale</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #fff8e1;
+        }
+        header {
+            background-color: #ffca28;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+            color: #444;
+        }
+        .limited-time-deals {
+            background: linear-gradient(90deg, #ff5252, #ffeb3b);
+            padding: 20px;
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            box-shadow: inset 0 -5px 5px -5px rgba(0,0,0,0.2);
+        }
+        .limited-deal-card {
+            min-width: 220px;
+            background: white;
+            border: 2px solid #ff7043;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .limited-deal-card img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+        }
+        .limited-deal-info {
+            padding: 10px;
+        }
+        .limited-deal-info h3, .limited-deal-info p {
+            margin: 5px 0;
+        }
+        .deal-price {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 6px;
+        }
+        .deal-badge {
+            font-size: 2em;
+            font-weight: bold;
+            color: #c62828;
+            margin-top: 6px;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: #fffde7;
+        }
+        .controls input, .controls select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .categories button {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: none;
+            background-color: #ffd54f;
+            cursor: pointer;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product-card h3 {
+            margin: 10px 0 5px;
+        }
+        .product-card .author {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .price {
+            margin-top: 6px;
+        }
+        .discounted {
+            color: #388e3c;
+            font-weight: bold;
+        }
+        .original {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 6px;
+        }
+        .discount {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #d32f2f;
+            margin-top: 5px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 8px 12px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -20%);
+            background: white;
+            padding: 20px;
+            border: 2px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        .modal.show {
+            display: block;
+        }
+        .modal a {
+            display: block;
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #1976d2;
+        }
+    
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+    .modal-overlay.show {
+        display: block;
+    }
+    .modal h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    .modal button {
+        padding: 8px 12px;
+        margin-top: 10px;
+        background: #ff7043;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
+    }
+    .modal button:hover {
+        background: #f4511e;
+    }
+    
+    .modal {
+        max-width: 360px;
+        width: 90%;
+        font-size: 1em;
+        line-height: 1.6;
+        padding: 20px 25px;
+        text-align: left;
+    }
+    .modal h3 {
+        text-align: center;
+        color: #444;
+        margin-bottom: 15px;
+    }
+    .modal p {
+        margin: 10px 0;
+    }
+    .modal a {
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .contact-links a {
+        display: inline-block;
+        margin-top: 5px;
+    }
+    .contact-icons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .contact-icons a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+        text-decoration: none;
+    }
+    .contact-phone {
+        background-color: #43a047;
+    }
+    .contact-whatsapp {
+        background-color: #25D366;
+    }
+    .contact-email {
+        background-color: #1e88e5;
+    }
+    .contact-icons a:hover {
+        opacity: 0.9;
+    }
+    </style>
+</head>
+<body>
+<header>
+<h1>Senior's Books For Sale</h1>
+<p>Open for Bargain</p>
+</header>
+<!-- Limited Time Deals Section -->
+<section class="limited-time-deals">
+<div class="limited-deal-card">
+<img alt="23 Years JEE MAINS PYQ" src="images/001.jpg"/>
+<div class="limited-deal-info">
+<h3>23 Years JEE MAINS PYQ</h3>
+<div>
+<span class="deal-price">₹949</span>
+<span class="original-price">₹2145</span>
+</div>
+<div class="deal-badge">56% OFF</div>
+</div>
+</div>
+<div class="limited-deal-card">
+<img alt="Master the NCERT Physics" src="images/002.jpg"/>
+<div class="limited-deal-info">
+<h3>Master the NCERT (Physics)</h3>
+<div>
+<span class="deal-price">₹389</span>
+<span class="original-price">₹800</span>
+</div>
+<div class="deal-badge">51% OFF</div>
+</div>
+</div>
+<div class="limited-deal-card">
+<img alt="Concepts of Physics" src="images/003.jpg"/>
+<div class="limited-deal-info">
+<h3>Concepts of Physics</h3>
+<div>
+<span class="deal-price">₹219</span>
+<span class="original-price">₹430</span>
+</div>
+<div class="deal-badge">49% OFF</div>
+</div>
+</div>
+<div class="limited-deal-card">
+<img alt="PUC Textbooks" src="images/004.jpg"/>
+<div class="limited-deal-info">
+<h3>I Year PUC Textbooks</h3>
+<div>
+<span class="deal-price">₹329</span>
+<span class="original-price">₹630</span>
+</div>
+<div class="deal-badge">48% OFF</div>
+</div>
+</div>
+</section>
+<!-- Controls Section -->
+<div class="controls">
+<input placeholder="Search by title or author" type="text"/>
+<select>
+<option value="">Sort by</option>
+<option value="price">Price</option>
+<option value="discount">Discount %</option>
+</select>
+</div>
+<!-- Category Toggle Buttons -->
+<div class="categories"><button>All</button>
+<button>JEE</button>
+<button>KCET</button>
+<button>NEET</button>
+<button>XI PUC Board</button>
+<button>XII PUC Board</button>
+</div>
+<!-- Product Grid Placeholder -->
+<div class="product-grid" id="product-grid">
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 1" src="images/01.jpg"/>
+<h3>JEE - 22 Years PYQ (2002–2023)</h3>
+<p class="author">Disha Publications</p>
+<div class="price">
+<span class="discounted">₹249</span>
+<span class="original">₹650</span>
+</div>
+<div class="discount">62% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 2" src="images/02.jpg"/>
+<h3>JEE - Mathematics Study Package (XI)</h3>
+<p class="author">Brilliant</p>
+<div class="price">
+<span class="discounted">₹249</span>
+<span class="original">₹600</span>
+</div>
+<div class="discount">58% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 3" src="images/03.jpg"/>
+<h3>JEE - Mains Chemistry PYQ (23 Years)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹249</span>
+<span class="original">₹545</span>
+</div>
+<div class="discount">54% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 4" src="images/04.jpg"/>
+<h3>JEE - IIT JEE 43 Years Mains + Advanced Chemistry</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹179</span>
+<span class="original">₹475</span>
+</div>
+<div class="discount">62% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 5" src="images/05.jpg"/>
+<h3>JEE - IIT JEE 44 Years Mains &amp; Advanced Physics</h3>
+<p class="author">Arihant (DC Pandey)</p>
+<div class="price">
+<span class="discounted">₹249</span>
+<span class="original">₹550</span>
+</div>
+<div class="discount">55% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 6" src="images/06.jpg"/>
+<h3>JEE - IIT JEE Main + Advanced Mathematics (44 Years)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹259</span>
+<span class="original">₹550</span>
+</div>
+<div class="discount">53% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 7" src="images/07.jpg"/>
+<h3>NEET - Physics for Everyone Part-1</h3>
+<p class="author">C.P. Singh</p>
+<div class="price">
+<span class="discounted">₹359</span>
+<span class="original">₹850</span>
+</div>
+<div class="discount">58% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 8" src="images/08.jpg"/>
+<h3>NEET - A to Z Physics for NEET (XII)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹399</span>
+<span class="original">₹815</span>
+</div>
+<div class="discount">51% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 9" src="images/09.jpg"/>
+<h3>NEET - A to Z Physics for NEET (XII)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹499</span>
+<span class="original">₹865</span>
+</div>
+<div class="discount">42% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 10" src="images/10.jpg"/>
+<h3>NEET - A to Z Biology for NEET (XI)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹399</span>
+<span class="original">₹865</span>
+</div>
+<div class="discount">54% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 11" src="images/11.jpg"/>
+<h3>NEET - A to Z Biology for NEET (XII)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹299</span>
+<span class="original">₹670</span>
+</div>
+<div class="discount">55% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 12" src="images/12.jpg"/>
+<h3>NEET - A to Z Biology for NEET (XI)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹399</span>
+<span class="original">₹865</span>
+</div>
+<div class="discount">54% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 13" src="images/13.jpg"/>
+<h3>NEET - A to Z Chemistry for NEET (XI)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹299</span>
+<span class="original">₹690</span>
+</div>
+<div class="discount">57% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 14" src="images/14.jpg"/>
+<h3>NEET - A to Z Chemistry for NEET (XII)</h3>
+<p class="author">Cengage</p>
+<div class="price">
+<span class="discounted">₹284</span>
+<span class="original">₹665</span>
+</div>
+<div class="discount">57% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 15" src="images/15.jpg"/>
+<h3>NCERT - NCERT Fingertips Chemistry</h3>
+<p class="author">MTG</p>
+<div class="price">
+<span class="discounted">₹389</span>
+<span class="original">₹850</span>
+</div>
+<div class="discount">54% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 16" src="images/16.jpg"/>
+<h3>NCERT - NCERT Fingertips Physics</h3>
+<p class="author">MTG</p>
+<div class="price">
+<span class="discounted">₹399</span>
+<span class="original">₹850</span>
+</div>
+<div class="discount">53% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 17" src="images/17.jpg"/>
+<h3>NCERT - NCERT Fingertips Biology</h3>
+<p class="author">MTG</p>
+<div class="price">
+<span class="discounted">₹449</span>
+<span class="original">₹999</span>
+</div>
+<div class="discount">55% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 18" src="images/18.jpg"/>
+<h3>NCERT - NCERT Fingertips Chemistry</h3>
+<p class="author">MTG</p>
+<div class="price">
+<span class="discounted">₹349</span>
+<span class="original">₹850</span>
+</div>
+<div class="discount">59% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 19" src="images/19.jpg"/>
+<h3>NCERT - NCERT Fingertips Maths</h3>
+<p class="author">MTG</p>
+<div class="price">
+<span class="discounted">₹319</span>
+<span class="original">₹750</span>
+</div>
+<div class="discount">57% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 20" src="images/20.jpg"/>
+<h3>NCERT - Master the NCERT (Maths) XI</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹249</span>
+<span class="original">₹450</span>
+</div>
+<div class="discount">45% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 21" src="images/21.jpg"/>
+<h3>NCERT - Master the NCERT (Physics)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹189</span>
+<span class="original">₹390</span>
+</div>
+<div class="discount">52% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 22" src="images/22.jpg"/>
+<h3>NCERT - Master the NCERT (Physics) XI</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹169</span>
+<span class="original">₹390</span>
+</div>
+<div class="discount">57% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 23" src="images/23.jpg"/>
+<h3>NCERT - Master the NCERT (Physics) XI</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹199</span>
+<span class="original">₹340</span>
+</div>
+<div class="discount">41% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 24" src="images/24.jpg"/>
+<h3>NCERT - Master the NCERT (Chemistry)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹189</span>
+<span class="original">₹390</span>
+</div>
+<div class="discount">52% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 25" src="images/25.jpg"/>
+<h3>XII PUC Boards - Sanskrit Study Material + Important PYQs (80/80)</h3>
+<p class="author">SPR</p>
+<div class="price">
+<span class="discounted">₹99</span>
+<span class="original">₹300</span>
+</div>
+<div class="discount">67% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 26" src="images/26.jpg"/>
+<h3>XII PUC Boards - Sanskrit Textbook with Mnemonics &amp; Answers</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹35</span>
+<span class="original">₹83</span>
+</div>
+<div class="discount">58% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 27" src="images/27.jpg"/>
+<h3>XI PUC Boards - Reflections English Textbook + Articulation Workbook</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹35</span>
+<span class="original">₹75</span>
+</div>
+<div class="discount">53% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 28" src="images/28.jpg"/>
+<h3>XII PUC Boards - Springs English Textbook + Streams Workbook (with Highlights)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹59</span>
+<span class="original">₹126</span>
+</div>
+<div class="discount">53% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 29" src="images/29.jpg"/>
+<h3>XI PUC Boards - Hindi Guide</h3>
+<p class="author">MCC Publication</p>
+<div class="price">
+<span class="discounted">₹79</span>
+<span class="original">₹160</span>
+</div>
+<div class="discount">51% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 30" src="images/30.jpg"/>
+<h3>XII PUC Boards - Sanskrit Guide</h3>
+<p class="author">MCC Publication</p>
+<div class="price">
+<span class="discounted">₹79</span>
+<span class="original">₹165</span>
+</div>
+<div class="discount">52% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 31" src="images/31.jpg"/>
+<h3>NEET - 19 Years PYQ by NTA</h3>
+<p class="author">Disha Publications</p>
+<div class="price">
+<span class="discounted">₹399</span>
+<span class="original">₹900</span>
+</div>
+<div class="discount">56% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 32" src="images/32.jpg"/>
+<h3>NEET - Objective Physics Vol. 2</h3>
+<p class="author">DC Pandey</p>
+<div class="price">
+<span class="discounted">₹354</span>
+<span class="original">₹795</span>
+</div>
+<div class="discount">55% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 33" src="images/33.jpg"/>
+<h3>NEET - Objective Physics Vol. 1</h3>
+<p class="author">DC Pandey</p>
+<div class="price">
+<span class="discounted">₹449</span>
+<span class="original">₹895</span>
+</div>
+<div class="discount">50% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 34" src="images/34.jpg"/>
+<h3>NEET - Errorless Physics Vol. 1</h3>
+<p class="author">NTA URD 1960</p>
+<div class="price">
+<span class="discounted">₹699</span>
+<span class="original">₹1990</span>
+</div>
+<div class="discount">65% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 35" src="images/35.jpg"/>
+<h3>NEET - Errorless Physics Vol. 2</h3>
+<p class="author">NTA UBD 1960</p>
+<div class="price">
+<span class="discounted">₹699</span>
+<span class="original">₹1990</span>
+</div>
+<div class="discount">65% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 36" src="images/36.jpg"/>
+<h3>XII PUC Boards - SPR English Handbook (10/80 Quality++)</h3>
+<p class="author">SPR</p>
+<div class="price">
+<span class="discounted">₹79</span>
+<span class="original">₹150</span>
+</div>
+<div class="discount">47% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 37" src="images/37.jpg"/>
+<h3>XI PUC Boards - Hindi Textbook &amp; Workbook</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹69</span>
+<span class="original">₹150</span>
+</div>
+<div class="discount">54% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 38" src="images/38.jpg"/>
+<h3>XII PUC Boards - Streams English Workbook</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹15</span>
+<span class="original">₹35</span>
+</div>
+<div class="discount">57% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 39" src="images/39.jpg"/>
+<h3>XI PUC Boards - Articulation English Workbook</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹20</span>
+<span class="original">₹60</span>
+</div>
+<div class="discount">67% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 40" src="images/40.jpg"/>
+<h3>NCERT - II PUC Physics Part I &amp; II</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹119</span>
+<span class="original">₹250</span>
+</div>
+<div class="discount">52% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 41" src="images/41.jpg"/>
+<h3>NCERT - I PUC Physics Part II</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹39</span>
+<span class="original">₹120</span>
+</div>
+<div class="discount">68% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 42" src="images/42.jpg"/>
+<h3>NCERT - I PUC Physics Part I (New)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹49</span>
+<span class="original">₹120</span>
+</div>
+<div class="discount">59% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 43" src="images/43.jpg"/>
+<h3>NCERT - I PUC Physics Part I (Old)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹19</span>
+<span class="original">₹86</span>
+</div>
+<div class="discount">78% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 44" src="images/44.jpg"/>
+<h3>NEET - 30 Years NEET/AIPMT Physics Solutions</h3>
+<p class="author">MTG</p>
+<div class="price">
+<span class="discounted">₹49</span>
+<span class="original">₹400</span>
+</div>
+<div class="discount">88% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 45" src="images/45.jpg"/>
+<h3>NEET - Errorless 36 Years PYQ Physics</h3>
+<p class="author">Disha Publications</p>
+<div class="price">
+<span class="discounted">₹229</span>
+<span class="original">₹525</span>
+</div>
+<div class="discount">56% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 46" src="images/46.jpg"/>
+<h3>NEET - Exam Winner Series (Used by NEET Topper CAJC)</h3>
+<p class="author">Exam Winner</p>
+<div class="price">
+<span class="discounted">₹349</span>
+<span class="original">₹710</span>
+</div>
+<div class="discount">51% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 47" src="images/47.jpg"/>
+<h3>XII PUC Boards - Chemistry &amp; Physics + Lab Manual (II PUC)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹54</span>
+<span class="original">₹115</span>
+</div>
+<div class="discount">53% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 48" src="images/48.jpg"/>
+<h3>XI PUC Boards - Chemistry, Physics &amp; Biology Lab Manual (I PUC)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹59</span>
+<span class="original">₹140</span>
+</div>
+<div class="discount">58% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 49" src="images/49.jpg"/>
+<h3>XI PUC Boards - Chemistry Lab Manual</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹5</span>
+<span class="original">₹30</span>
+</div>
+<div class="discount">83% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 50" src="images/50.jpg"/>
+<h3>XII PUC Boards - Physics Lab Manual</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹19</span>
+<span class="original">₹55</span>
+</div>
+<div class="discount">65% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 51" src="images/51.jpg"/>
+<h3>XI PUC Boards - Biology Lab Manual</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹5</span>
+<span class="original">₹30</span>
+</div>
+<div class="discount">83% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 52" src="images/52.jpg"/>
+<h3>XII PUC Boards - Biology Lab Manual</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹10</span>
+<span class="original">₹40</span>
+</div>
+<div class="discount">75% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 53" src="images/53.jpg"/>
+<h3>XII PUC Boards - SPR Sanskrit Handbook (XII)</h3>
+<p class="author">SPR Publication</p>
+<div class="price">
+<span class="discounted">₹69</span>
+<span class="original">₹140</span>
+</div>
+<div class="discount">51% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 54" src="images/54.jpg"/>
+<h3>XI PUC Boards - NCERT Exemplar Maths Problems with Solutions (XI)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹69</span>
+<span class="original">₹175</span>
+</div>
+<div class="discount">61% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 55" src="images/55.jpg"/>
+<h3>XI PUC Boards - NCERT Exemplar Chemistry Problems with Solutions (XI)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹54</span>
+<span class="original">₹150</span>
+</div>
+<div class="discount">64% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 56" src="images/56.jpg"/>
+<h3>XI PUC Boards - NCERT Exemplar Physics Problems with Solutions (XI)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹49</span>
+<span class="original">₹156</span>
+</div>
+<div class="discount">69% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 57" src="images/57.jpg"/>
+<h3>NCERT - NCERT Solutions – Physics Class XII</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹59</span>
+<span class="original">₹145</span>
+</div>
+<div class="discount">59% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 58" src="images/58.jpg"/>
+<h3>NCERT - NCERT Solutions – Physics Class XII</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹59</span>
+<span class="original">₹145</span>
+</div>
+<div class="discount">59% OFF!</div>
+</div>
+<div class="product-card" data-category="NEET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 59" src="images/59.jpg"/>
+<h3>NEET - 36 Years Errorless PYQ Chemistry (Chapter-wise &amp; Topic-wise)</h3>
+<p class="author">Disha Publications</p>
+<div class="price">
+<span class="discounted">₹199</span>
+<span class="original">₹500</span>
+</div>
+<div class="discount">60% OFF!</div>
+</div>
+<div class="product-card" data-category="KCET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 60" src="images/60.jpg"/>
+<h3>KCET - KCET Chemistry Vol. 2</h3>
+<p class="author">Deepti Publications</p>
+<div class="price">
+<span class="discounted">₹99</span>
+<span class="original">₹299</span>
+</div>
+<div class="discount">67% OFF!</div>
+</div>
+<div class="product-card" data-category="KCET" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 61" src="images/61.jpg"/>
+<h3>KCET - KCET Physics Vol. 2</h3>
+<p class="author">Deepti Publications</p>
+<div class="price">
+<span class="discounted">₹149</span>
+<span class="original">₹399</span>
+</div>
+<div class="discount">63% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 62" src="images/62.jpg"/>
+<h3>XII PUC Boards - Handbook – II PUC Biology</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹19</span>
+<span class="original">₹70</span>
+</div>
+<div class="discount">73% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 63" src="images/63.jpg"/>
+<h3>XII PUC Boards - Handbook – I PUC English (2022–23 + 2024–25)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹69</span>
+<span class="original">₹140</span>
+</div>
+<div class="discount">51% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 64" src="images/64.jpg"/>
+<h3>XII PUC Boards - Handbook – II PUC Mathematics (Used by Topper)</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹29</span>
+<span class="original">₹70</span>
+</div>
+<div class="discount">59% OFF!</div>
+</div>
+<div class="product-card" data-category="XI PUC Board XII PUC Board" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 65" src="images/65.jpg"/>
+<h3>XII PUC Boards - Handbook – II PUC Physics</h3>
+<p class="author">Boards</p>
+<div class="price">
+<span class="discounted">₹9</span>
+<span class="original">₹60</span>
+</div>
+<div class="discount">85% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 66" src="images/66.jpg"/>
+<h3>JEE - Math Topper DPP Material for JEE Mains</h3>
+<p class="author">[Math Teacher]</p>
+<div class="price">
+<span class="discounted">₹59</span>
+<span class="original">₹150</span>
+</div>
+<div class="discount">61% OFF!</div>
+</div>
+<div class="product-card" data-category="JEE" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 67" src="images/67.jpg"/>
+<h3>JEE - Mains Mathematics PYQ (23 Years)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹349</span>
+<span class="original">₹775</span>
+</div>
+<div class="discount">55% OFF!</div>
+</div>
+<div class="product-card" data-category="NCERT" onclick="document.getElementById('contactModal').classList.add('show');">
+<img alt="Book Cover 68" src="images/68.jpg"/>
+<h3>NCERT - NCERT Exemplar Biology Problems with Solutions (XII)</h3>
+<p class="author">Arihant</p>
+<div class="price">
+<span class="discounted">₹79</span>
+<span class="original">₹195</span>
+</div>
+<div class="discount">59% OFF!</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="pagination" id="pagination-controls"></div>
+<!-- Modal for Contact Info -->
+<div class="modal-overlay" id="modalOverlay"></div><div class="modal show" id="contactModal">
+<h3>Contact Seller</h3>
+<div class="contact-icons">
+<a class="contact-phone" href="tel:6361058975">📞 Call: 6361058975</a>
+<a class="contact-whatsapp" href="https://wa.me/6361058975" target="_blank">💬 WhatsApp Chat</a>
+<a class="contact-email" href="mailto:sharanbooksale@gmail.com">✉️ Email: sharanbooksale@gmail.com</a>
+</div>
+<button id="closeModalBtn">Close</button>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const grid = document.getElementById("product-grid");
+    const allCards = Array.from(grid.querySelectorAll(".product-card"));
+    const searchInput = document.querySelector('input[placeholder="Search by title or author"]');
+    const sortSelect = document.querySelector('select');
+    const pagination = document.getElementById("pagination-controls");
+    const perPage = 9;
+    let filteredCards = [...allCards];
+    let currentPage = 1;
+
+    function applySearch() {
+        const query = searchInput.value.toLowerCase();
+        filteredCards = allCards.filter(card => {
+            const title = card.querySelector("h3").textContent.toLowerCase();
+            const author = card.querySelector(".author")?.textContent.toLowerCase() || '';
+            return title.includes(query) || author.includes(query);
+        });
+        applySort();
+    }
+
+    function applySort() {
+        const sortBy = sortSelect.value;
+        filteredCards.sort((a, b) => {
+            const priceA = parseFloat(a.querySelector('.discounted')?.textContent.replace('₹','') || 0);
+            const priceB = parseFloat(b.querySelector('.discounted')?.textContent.replace('₹','') || 0);
+            const discountA = parseFloat(a.querySelector('.discount')?.textContent.replace('% OFF!', '').replace('OFF!', '') || 0);
+            const discountB = parseFloat(b.querySelector('.discount')?.textContent.replace('% OFF!', '').replace('OFF!', '') || 0);
+
+            if (sortBy === "price") return priceA - priceB;
+            if (sortBy === "discount") return discountB - discountA;
+            return 0;
+        });
+        renderPage(1);
+    }
+
+    function renderPage(page) {
+        currentPage = page;
+        const start = (page - 1) * perPage;
+        const end = start + perPage;
+        allCards.forEach(card => card.style.display = "none");
+        filteredCards.slice(start, end).forEach(card => card.style.display = "block");
+        renderPagination();
+    }
+
+    function renderPagination() {
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(filteredCards.length / perPage);
+        if (totalPages <= 1) return;
+
+        const createBtn = (text, disabled, onClick) => {
+            const btn = document.createElement("button");
+            btn.textContent = text;
+            btn.disabled = disabled;
+            btn.onclick = onClick;
+            pagination.appendChild(btn);
+        };
+
+        createBtn("Previous", currentPage === 1, () => renderPage(currentPage - 1));
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            btn.className = i === currentPage ? "active" : "";
+            btn.onclick = () => renderPage(i);
+            pagination.appendChild(btn);
+        }
+
+        createBtn("Next", currentPage === totalPages, () => renderPage(currentPage + 1));
+    }
+
+    document.querySelectorAll('.categories button').forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.textContent.trim();
+            searchInput.value = '';
+            sortSelect.value = '';
+            if (category === 'All') {
+                filteredCards = [...allCards];
+            } else {
+                filteredCards = allCards.filter(card => {
+                    const cardCategory = card.getAttribute('data-category') || '';
+                    return cardCategory.includes(category);
+                });
+            }
+            renderPage(1);
+        });
+    });
+
+    searchInput.addEventListener("input", () => {
+        applySearch();
+        renderPage(1);
+    });
+
+    sortSelect.addEventListener("change", () => {
+        applySort();
+        renderPage(1);
+    });
+
+    applySearch(); // Initial render
+});
+</script><script>
+let lastClickedCard = null;
+
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const modal = document.getElementById('contactModal');
+        const overlay = document.getElementById('modalOverlay');
+
+        if (lastClickedCard === card && modal.classList.contains('show')) {
+            modal.classList.remove('show');
+            overlay.classList.remove('show');
+            lastClickedCard = null;
+        } else {
+            modal.classList.add('show');
+            overlay.classList.add('show');
+            lastClickedCard = card;
+        }
+    });
+});
+
+document.getElementById('closeModalBtn').addEventListener('click', () => {
+    document.getElementById('contactModal').classList.remove('show');
+    document.getElementById('modalOverlay').classList.remove('show');
+    lastClickedCard = null;
+});
+
+document.getElementById('modalOverlay').addEventListener('click', () => {
+    document.getElementById('contactModal').classList.remove('show');
+    document.getElementById('modalOverlay').classList.remove('show');
+    lastClickedCard = null;
+});
+</script></body>
+</html>
